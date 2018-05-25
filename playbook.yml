@@ -4,8 +4,6 @@
   gather_facts: no
  
   tasks:
-    #- name: Check if nmap file is set
-      #shell: cat /etc/facter/facts.d/ha_nmap.txt
     - name: Check if nmap file is set
       lineinfile: 
         path: /etc/facter/facts.d/ha_nmap.txt
