@@ -1,12 +1,15 @@
 ---
 - hosts: all
-  user: yaquino
+  user: yasser
   gather_facts: no
- 
   tasks:
-    - name: Check if nmap file is set
-      lineinfile: 
-        path: /etc/facter/facts.d/ha_nmap.txt
-        line: 'nmap=enable'
-        state: present
-      check_mode: yes
+     - name: Check that the file resolv.conf exists
+       stat:
+         path: /etc/resolv.conf
+       register: p
+     - debug:
+         msg: "File exists..."
+       when: p.stat.exists
+     - debug:
+         msg: "File not found"
+       when: p.stat.exists == False
