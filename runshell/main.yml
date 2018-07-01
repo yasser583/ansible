@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  tasks:
+  - name: upload a file to the target if it doesnt exists
+    copy:
+      src: files/script1.sh
+      dest: /home/yasser/script.sh
+      mode: 0755
+  - name: if the line is not there add it
+    lineinfile:
+      state: present
+      dest: /home/yasser/script.sh
+      regexp: '^HOSTNAME='
+      line: HOSTNAME={{ansible_hostname}}
+  - name: Run the program
+    shell: /home/yasser/script.sh
+    register: script_output
+  - debug: msg="stout={{script_output}}"
